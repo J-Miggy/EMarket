@@ -10,8 +10,8 @@ const { Storage } = Plugins;
 
 
 const CART_STORAGE_KEY = 'MY_CART';
-const INCREMENT = firebase.firestore.FieldValue.increment(1);
-const DECREMENT = firebase.firestore.FieldValue.inrecrement(-1);
+// const INCREMENT = firebase.firestore.FieldValue.increment(1);
+// const DECREMENT = firebase.firestore.FieldValue.inrecrement(-1);
 
 @Injectable({
   providedIn: 'root'

@@ -1,0 +1,7 @@
+{
+  "name": "PublicEM",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

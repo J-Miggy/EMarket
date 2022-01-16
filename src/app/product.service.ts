@@ -2,16 +2,12 @@ import { Injectable } from '@angular/core';
 import { AngularFirestoreCollection } from '@angular/fire/compat/firestore';
 import { BehaviorSubject } from 'rxjs';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-
-import * as firebase from 'firebase/compat/app';
-import 'firebase/firestore'
-import { Plugins } from '@capacitor/core';
-const { Storage } = Plugins;
-
+import { Storage } from '@capacitor/storage';
+import firebase from 'firebase/compat/app';
 
 const CART_STORAGE_KEY = 'MY_CART';
 const INCREMENT = firebase.firestore.FieldValue.increment(1);
-const DECREMENT = firebase.firestore.FieldValue.inrecrement(-1);
+const DECREMENT = firebase.firestore.FieldValue.increment(-1);
 
 @Injectable({
   providedIn: 'root'
@@ -84,11 +80,5 @@ export class ProductService {
     this.afs.collection('carts').doc(this.cartKey).set({
       lastUpdate: firebase.firestore.FieldValue.serverTimestamp()
     });
-
-  }
-    
-  }
-     
-   
-    
+  }    
 }

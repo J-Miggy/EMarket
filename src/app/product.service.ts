@@ -6,8 +6,6 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 import * as firebase from 'firebase/compat/app';
 import 'firebase/firestore'
 import { Plugins } from '@capacitor/core';
-@deprecated
-
 const { Storage } = Plugins;
 
 

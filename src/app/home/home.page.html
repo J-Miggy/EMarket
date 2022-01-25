@@ -1,18 +1,95 @@
 <ion-header>
- 
+
+
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button>
+        <img src="../../assets/menu_bar.svg" />
+      </ion-menu-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-icon color="black" slot="icon-only" (click)="doLogout()" name="exit"></ion-icon>
+    </ion-buttons>
+    
+    
+    
+  </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-padding ion-text-center">
-  <div class="container">
-    <div class="page-header">
-      <h3>A few clicks is all it takes.</h3>
-    </div>
 
-    <img src="../../assets/em.png" />
-
-    <div class="button-container">
-      <ion-button expand="block" class="main-button" routerLink="/login" routerDirection="forward">Log in</ion-button>
-      <ion-button expand="block" color="dark" fill="clear" routerLink="/signup" routerDirection="forward">Signup</ion-button>
-    </div>
+<ion-content>
+  <div class="search ion-padding">
+    <ion-item lines="none">
+      <ion-input placeholder="Search a Product"></ion-input>
+      <ion-icon name="search-outline" slot="start"></ion-icon>
+    </ion-item>
   </div>
+
+
+<ion-content>
+  
+  <ion-fab vertical="bottom" horizontal="start" slot="fixed">
+    <ion-fab-button (click)="openCart()" #cart>
+      <div class="cart-length">{{ cartItemCount | async }} </div>
+      <ion-icon name="cart" class="cart-icon"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button [routerLink]="['/addnew']">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+  
+
+
+   <ion-list lines="none" *ngIf="!isLoading">
+     
+    <ion-item-sliding *ngFor="let p of productlist">
+      <ion-item class="no-padding">
+        <ion-label>
+          <h2>{{p.producttitle}}</h2>
+          <p>{{p.productdesc}}</p>
+    
+          <ion-button fill="clear" (click)="addToCart(p)">
+            <ion-icon name="add"></ion-icon>
+            Add to Cart
+          </ion-button>
+          
+        </ion-label>
+        <ion-badge slot="start" color="dark">{{p.productprice | currency:'PHP' }}</ion-badge>
+      </ion-item>
+      <ion-item-options side="start">
+        <ion-item-option [routerLink]="['/modify/',p.docid]">
+          <ion-icon slot="icon-only" name="pencil"></ion-icon>
+        </ion-item-option>
+      </ion-item-options>
+      <ion-item-options side="end">
+        <ion-item-option color="danger" (click)="deleteConfirmproduct(p.docid)">
+          <ion-icon slot="icon-only" name="trash"></ion-icon>
+        </ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+  
+  
+  </ion-list>
+
+
+  <ion-list lines="none" *ngIf="isLoading">
+    <ion-item-sliding *ngFor="let p of productlist">
+      <ion-item lines="none">
+          <ion-label>
+              <h3>
+                  <ion-skeleton-text animated style="width: 30%"></ion-skeleton-text>
+              </h3>
+              <p>
+                  <ion-skeleton-text animated style="width: 75%"></ion-skeleton-text>
+              </p>
+          </ion-label>
+      </ion-item>
+    </ion-item-sliding>
+  </ion-list>
+  
+
+  
 </ion-content>

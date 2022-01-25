@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { NavController } from '@ionic/angular';
-import { UtilService } from '../util.service';
-
+import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { FormGroup, FormBuilder, Validators } from "@angular/forms";
+import { Validator } from '../helpers/validation.helpers';
+import { ToastService } from '../services/toast.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -9,45 +11,33 @@ import { UtilService } from '../util.service';
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage implements OnInit {
-  [x: string]: any;
-  public email: any;
-  public password: any;
+  loginform: FormGroup;
 
-  constructor(
-    private util: UtilService,
-    private navCtrl: NavController,
-  
-  ) { }
+  constructor(private fbauth: AngularFireAuth,
+              public loginFormbuilder: FormBuilder,
+              private valuechecker: Validator,
+              private toastservice: ToastService,
+              public ngroute: Router) {
+    this.loginform = this.loginFormbuilder.group({
+      useremail: ['', Validators.required, this.valuechecker.emailCheck],
+      userpass: ['', Validators.required, '']
+    })
+  }
 
   ngOnInit() {
   }
 
-  login() {
-    // Enabling Side Menu
-    this.util.setMenuState(true);
-    this.navCtrl.navigateRoot('/home', { animationDirection: 'forward' });
-
-    // fireService
-    this.fireService.loginWithEmail({email:this.email,password:this.password}).then(res=>{
-      console.log(res);
-      if(res.user.uid){
-        this.fireService.getDetails({uid:res.user.uid}).subscribe(res=>{
-          console.log(res);
-          alert('Welcome '+ res['name']);
-        },err=>{
-          console.log(err);
-        });
-      }
-    },err=>{
-      alert(err.message)
-      console.log(err);
-    })
-   
+  async doLogin() {
+    //console.log(this.loginform.get('useremail').value)
+    try{
+      await this.fbauth.signInWithEmailAndPassword(this.loginform.get('useremail').value, this.loginform.get('userpass').value).then(data => {
+        console.log(data);
+        this.ngroute.navigate(['home']);
+      })
+    }catch(error){
+      this.toastservice.showToast(error.message, 2000);
+      //console.log(error.message);
+    }
   }
-  
 
-
-  signup(): void{
-    this.router.navigateByURL('signup');
-  }
 }

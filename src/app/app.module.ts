@@ -1,59 +1,51 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
-import { SplashScreen } from '@ionic-native/splash-screen/ngx';
-import { FormsModule } from '@angular/forms';
-
-
-import { ReactiveFormsModule } from '@angular/forms';
 
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
+import { environment } from '../environments/environment';
 
-//Firebase
-import { AngularFireModule } from '@angular/fire/compat';
-import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
-import { AngularFireAuthModule } from '@angular/fire/compat/auth';
+
+//firebase imports
+import { AngularFireModule } from "@angular/fire/compat";
+import { AngularFireAuthModule } from "@angular/fire/compat/auth";
+import { AngularFirestoreModule } from "@angular/fire/compat/firestore";
+
+import { Validator } from './helpers/validation.helpers';
+
+//added
+import { SplashScreen } from '@ionic-native/splash-screen/ngx';
+import { StatusBar } from '@ionic-native/status-bar/ngx';
+import { CartPageModule } from './cart/cart.module';
+
+
+//Image
 import { AngularFireStorageModule } from '@angular/fire/compat/storage';
-import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
-
-//Env
-import { environment } from '../environments/environment.prod';
-
-//Services
-import { CrudService } from './service/crud.service';
-
-
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
-  imports: [BrowserModule,
-  FormsModule,
-  AngularFireModule,
-  AngularFireDatabaseModule,
-  ReactiveFormsModule,
-  AngularFireModule.initializeApp(environment.firebaseConfig),
-  AngularFirestoreModule,
-  AngularFireAuthModule,
-  AngularFireStorageModule,
-  IonicModule.forRoot(), AppRoutingModule],
-
+  imports: [
+    CartPageModule,
+    FormsModule,
+    AngularFireStorageModule,
+    BrowserModule, 
+    IonicModule.forRoot(), 
+    AppRoutingModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFireAuthModule,
+    AngularFirestoreModule
+  ],
   providers: [
-    [CrudService],
+    Validator,
+    StatusBar,
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
-  bootstrap: [AppComponent],
-
-  
-
-  
+  bootstrap: [AppComponent]
 })
 export class AppModule {}
-function firebaseConfig(firebaseConfig: any): any[] | import("@angular/core").Type<any> | import("@angular/core").ModuleWithProviders<{}> {
-  throw new Error('Function not implemented.');
-}
-

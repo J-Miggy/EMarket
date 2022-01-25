@@ -1,33 +1,45 @@
-<ion-header>
+<ion-header class="ion-no-border">
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-button class="backbtn" routerLink="/welcome" routerDirection="back">
-        <img src="../../assets/back.svg" />
-      </ion-button>
+      <ion-button color="primary" routerLink="/welcome">
+      <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+    </ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-padding">
-  <div class="ion-padding container">
-    <h1>Login</h1>
 
-    <div class="form-container">
-      <ion-item>
-        <ion-label position="floating">Email</ion-label>
-        <ion-input></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label position="floating">Password</ion-label>
-        <ion-input type="password"></ion-input>
-        <ion-icon name="eye" slot="end"></ion-icon>
-      </ion-item>
 
-      <ion-button expand="block" class="main-button" (click)="login()">Log in</ion-button>
 
-      <div class="sign-up">
-        Don't have an account? <ion-button color="dark" fill="clear" routerLink="/signup" routerDirection="forward">Sign up</ion-button>
-      </div>
-    </div>
+<ion-content class="ion-padding ion-text-center">
+  <div class="logo">
+    <img src="../../assets/em.png"/>
   </div>
+
+        <div class="form-container">
+        <form [formGroup]="loginform" (ngSubmit)="doLogin()" novalidate>
+        
+          <ion-item lines='none'>
+          <ion-input placeholder="Email" type="text" [formControl]="loginform.controls['useremail']" required></ion-input>
+          <div *ngIf="loginform.controls['useremail'].dirty && !loginform.controls['useremail'].valid">
+            <p *ngIf="loginform.controls['useremail'].errors.InvalidEmail">Invalid</p>
+          </div>
+        </ion-item>
+        
+        <ion-item lines='none'>  
+          <ion-input placeholder="Password" type="password" [formControl]="loginform.controls['userpass']" required></ion-input>
+        </ion-item>
+        <ion-button type="submit"
+                color="primary"
+                expand="block" 
+                class="ion-activatable ripple-parent"
+                [disabled]="!loginform.valid">
+          LOGIN
+          <ion-ripple-effect type="unbounded"></ion-ripple-effect>
+        </ion-button>
+        <ion-button type="submit" color="primary" expand="block" routerLink="/signup">Sign Up</ion-button>
+      </form>
+      
+   
+    </div>
 </ion-content>

@@ -1,11 +1,14 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from './guards/auth.guard';
+import { LoginGuard } from './guards/login.guard';
 
 
 const routes: Routes = [
   {
     path: 'home',
-    loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
+    loadChildren: () => import('./home/home.module').then( m => m.HomePageModule),
+    
   },
   {
     path: '',
@@ -14,7 +17,9 @@ const routes: Routes = [
   },
   {
     path: 'login',
-    loadChildren: () => import('./login/login.module').then( m => m.LoginPageModule)
+    loadChildren: () => import('./login/login.module').then( m => m.LoginPageModule),
+    
+    
   },
   {
     path: 'signup',
@@ -22,11 +27,13 @@ const routes: Routes = [
   },
   {
     path: 'modify/:id',
-    loadChildren: () => import('./modify/modify.module').then( m => m.ModifyPageModule)
+    loadChildren: () => import('./modify/modify.module').then( m => m.ModifyPageModule),
+    canActivate: [ AuthGuard]
   },
   {
     path: 'addnew',
-    loadChildren: () => import('./addnew/addnew.module').then( m => m.AddnewPageModule)
+    loadChildren: () => import('./addnew/addnew.module').then( m => m.AddnewPageModule),
+    canActivate: [ AuthGuard ]
   },
   {
     path: 'welcome',
@@ -34,7 +41,8 @@ const routes: Routes = [
   },
   {
     path: 'cart',
-    loadChildren: () => import('./cart/cart.module').then( m => m.CartPageModule)
+    loadChildren: () => import('./cart/cart.module').then( m => m.CartPageModule),
+    canActivate: [ AuthGuard ]
   },
   
   

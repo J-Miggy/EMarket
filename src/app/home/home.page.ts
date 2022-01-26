@@ -9,6 +9,7 @@ import { delay } from 'rxjs/operators';
 
 import { CartService } from '../services/cart.service';
 import { CartPage } from '../cart/cart.page';
+import { FirebaseAuthService } from '../services/firebase-auth.service';
 
 
 @Component({
@@ -34,6 +35,7 @@ export class HomePage implements OnInit {
     private toastservice: ToastService,
     private cartService: CartService,
     private modalCtrl: ModalController,
+    public firebaseAuthService: FirebaseAuthService,
 
     public ngroute: Router,
     private fbstore: AngularFirestore,
@@ -102,7 +104,7 @@ export class HomePage implements OnInit {
 
     await alert.present();
   }
-
+  //To be removed
   async doLogout(): Promise<void> {
     await this.fbauth.signOut().then(() => {
       this.ngroute.navigate(['login']);
@@ -148,6 +150,9 @@ animateCSS(animationName, keepAnimated = false) {
   node.addEventListener('animationend', handleAnimationEnd)
 }
 
+logoutAction(){
+  this.firebaseAuthService.logout();
+}
 
 
 }

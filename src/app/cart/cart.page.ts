@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { Router } from '@angular/router';
 import { AlertController, ModalController } from '@ionic/angular';
 import { BehaviorSubject } from 'rxjs';
 import { Product } from '../models/product';
 import { CartService } from '../services/cart.service';
+
 @Component({
   selector: 'app-cart',
   templateUrl: './cart.page.html',
@@ -16,7 +19,9 @@ export class CartPage implements OnInit {
   constructor(
     private cartService: CartService,
     private modalCtrl: ModalController,
-    private alertCtrl: AlertController
+    private alertCtrl: AlertController,
+    private fbauth: AngularFireAuth,
+    public ngroute: Router
   ) { }
 
   ngOnInit() {
@@ -53,6 +58,11 @@ export class CartPage implements OnInit {
     });
     alert.present().then(() => {
       this.modalCtrl.dismiss();
+    });
+  }
+  async doLogout(): Promise<void> {
+    await this.fbauth.signOut().then(() => {
+      this.ngroute.navigate(['login']);
     });
   }
 }

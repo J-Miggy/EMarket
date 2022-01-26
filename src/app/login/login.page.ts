@@ -4,6 +4,7 @@ import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { Validator } from '../helpers/validation.helpers';
 import { ToastService } from '../services/toast.service';
 import { Router } from '@angular/router';
+import { FirebaseAuthService } from '../services/firebase-auth.service';
 
 @Component({
   selector: 'app-login',
@@ -13,7 +14,10 @@ import { Router } from '@angular/router';
 export class LoginPage implements OnInit {
   loginform: FormGroup;
 
-  constructor(private fbauth: AngularFireAuth,
+  constructor(
+              public firebaseAuthService: FirebaseAuthService,
+              
+              private fbauth: AngularFireAuth,
               public loginFormbuilder: FormBuilder,
               private valuechecker: Validator,
               private toastservice: ToastService,

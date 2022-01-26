@@ -38,6 +38,7 @@
           <ion-ripple-effect type="unbounded"></ion-ripple-effect>
         </ion-button>
         <ion-button type="submit" color="primary" expand="block" routerLink="/signup">Sign Up</ion-button>
+        <ion-button color="primary" expand="block" (click)="firebaseAuthService.googleLogin()" routerLink="/home">Google Login</ion-button>
       </form>
       
    

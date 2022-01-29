@@ -1,0 +1,40 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title color="light">Payment</ion-title>
+    <ion-buttons slot='start'>
+      <ion-back-button color="light" defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+  <ion-toolbar>
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="main_content_div">
+    <ion-label>1. Select Your Payment Method</ion-label>
+    <ion-row style="margin-top : 20px; ">
+      <ion-col size="4">
+        <div class="square_div" (click)="changeMethod(1)" [class.yellow]="id ==1">
+        <img class="gcash" *ngIf="id !=1" src="../assets/gcash.png"/>
+        <img class="gcash" *ngIf="id ==1" src="../assets/gcash2.png"/>
+      </div>
+      <p>Gcash</p>
+      </ion-col>
+
+      <ion-col size="4">
+        <div class="square_div" (click)="changeMethod(2)" [class.yellow]="id ==2">
+        <img class="gcash" *ngIf="id !=2" src="../assets/cod.png"/>
+        <img class="gcash" *ngIf="id ==2" src="../assets/cod2.png"/>
+      </div>
+      <p>COD</p>
+      </ion-col>
+      
+    </ion-row>
+
+    <ion-label>2. Enter Your Number</ion-label>
+    <ion-input type="number" placeholder="09xx-xxx-xxx-xx"></ion-input>
+    <ion-button expand="block" fill="clear" shape="round" (click)="doConfirm()">Confirm</ion-button>
+
+  </div>
+</ion-content>

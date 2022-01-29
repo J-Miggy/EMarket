@@ -48,18 +48,6 @@ export class CartPage implements OnInit {
     this.modalCtrl.dismiss();
   }
  
-  async checkout() {
-    
- 
-    let alert = await this.alertCtrl.create({
-      header: 'Thanks for your Order!',
-      message: 'We will deliver your oder as soon as possible!',
-      buttons: ['OK']
-    });
-    alert.present().then(() => {
-      this.modalCtrl.dismiss();
-    });
-  }
   async doLogout(): Promise<void> {
     await this.fbauth.signOut().then(() => {
       this.ngroute.navigate(['login']);

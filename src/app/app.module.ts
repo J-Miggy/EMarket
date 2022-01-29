@@ -21,6 +21,9 @@ import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { CartPageModule } from './cart/cart.module';
 
+// Dummy
+import { HttpClientModule } from '@angular/common/http';
+
 
 //Image
 import { AngularFireStorageModule } from '@angular/fire/compat/storage';
@@ -30,6 +33,9 @@ import { FormsModule } from '@angular/forms';
   declarations: [AppComponent],
   entryComponents: [],
   imports: [
+    // Dummy
+    HttpClientModule,
+    
     CartPageModule,
     FormsModule,
     AngularFireStorageModule,
